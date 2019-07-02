@@ -9,12 +9,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Home automation system</title>
+    <script>
+     $('.button').click(function() {
+
+        $.ajax({
+        type: "POST",
+        url: "some.php",
+        data: { name: "John" }
+        }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+    });    
+
+   });
+    </script>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <h1>Home automation system</h1>
     <div class="container">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">ON</button>
+            <button type="button" class="btn btn-secondary" action="">ON</button>
             <button type="button" class="btn btn-secondary">OFF</button>
         </div>
     </div>
