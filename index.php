@@ -12,10 +12,12 @@
   </head>
   <body>
     
-    <div class="container">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary" id="lampon" >ON</button>
-            <button type="button" class="btn btn-secondary" id="lampoff">OFF</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                 <button type="button" class="btn btn-secondary" id="lampon" >ON</button>
+                <button type="button" class="btn btn-secondary" id="lampoff">OFF</button>
+        </div>
         </div>
     </div>
     <!-- Optional JavaScript -->

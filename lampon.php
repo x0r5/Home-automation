@@ -1,9 +1,6 @@
 <?php
 
-//system("echo raspberry | sudo -S python /var/www/PiHome/scripts/lights/lampon.py");
-//header(Location: 'index.php' ) ;
-
-$command = escapeshellcmd('python3 test.py');
+$command = escapeshellcmd('python3 scripts/lampon.py');
 $output = shell_exec($command);
 echo $output;
 
