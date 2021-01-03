@@ -127,31 +127,6 @@ $(document).ready(function() {
         });
     }
 
-    noUiSlider.create(wSlider, {
-        behavior: "tap",
-        start: [100],
-        connect: [false, true],
-        step: 5,
-        range: {
-            'min': [0],
-            'max': [100]
-        },
-        pips: {
-            mode: 'values',
-            values: [0, 25, 50, 75, 100],
-            density: 5,
-            format: wNumb({
-                decimals: 0,
-                postfix: "%"
-            })
-        }
-    });
-
-    wSlider.noUiSlider.on('change', function(e) {
-       let sliderVal = (wSlider.noUiSlider.get()/100);
-       changeWhiteLed(Math.floor(sliderVal * 255));
-    });
-
     // Get RGB Status so Color Picker in UI is set to that color on page load
     function getLEDStatus() {
         $.ajax({
