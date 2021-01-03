@@ -12,10 +12,10 @@ with open('/var/www/html/alarm.json', 'r') as f:
     green = data['green']
     blue = data['blue']
 
-    parts = 10
+    parts = 60
     wake_up_time = 1 #hours
     wake_up_time = wake_up_time * 60 * 60 #seconds
-    wake_up_time = 5
+    sleep_time = float(wake_up_time) / parts
     redlist = []
     bluelist = []
     greenlist = []
@@ -35,4 +35,6 @@ with open('/var/www/html/alarm.json', 'r') as f:
         pi.set_PWM_dutycycle(24, redlist[i])
         pi.set_PWM_dutycycle(18, bluelist[i])
         pi.set_PWM_dutycycle(25, greenlist[i])
-        time.sleep(float(wake_up_time))
+        time.sleep( sleep_time )
+
+print('wakeup finished at: ' + str(datetime.now()))

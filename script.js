@@ -145,6 +145,7 @@ $(document).ready(function() {
 });
 
 function setAlarm(){
+    console.log(currentColors);
     let timeSet = document.getElementById('inputTime').value;
     if(timeSet){
         hour = timeSet.split(':')[0];
@@ -154,12 +155,12 @@ function setAlarm(){
         return;
     }
     $.ajax({
-        url: `${config.url}/led/setAlarm?red=255&hour=${hour}&minute=${minute}`,
+        url: `${config.url}/led/setAlarm?red=${currentColors.red}&green=${currentColors.green}&blue=${currentColors.blue}&hour=${hour}&minute=${minute}`,
         method: 'GET',
         dataType: 'json',
         cache: false,
         success: function(result) {
             console.log(result);
-        },
+        }
     });
 }

@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from crontab import CronTab
 from datetime import date
+from datetime import datetime
+from datetime import timedelta
 import pigpio
 import json
 
@@ -36,9 +38,9 @@ def get_status():
 @app.route('/setAlarm', methods=['GET'])
 def set_alarm():
 
-    red = 255 #int(request.args.get('red')) if (request.args.get('red')) else 0
-    green = 255 #int(request.args.get('green')) if (request.args.get('green')) else 0
-    blue = 255 #int(request.args.get('blue')) if (request.args.get('blue')) else 0
+    red = int(request.args.get('red')) if (request.args.get('red')) else 0
+    green = int(request.args.get('green')) if (request.args.get('green')) else 0
+    blue = int(request.args.get('blue')) if (request.args.get('blue')) else 0
     hour = int(request.args.get('hour')) if (request.args.get('hour')) else 0
     minute = int(request.args.get('minute')) if (request.args.get('minute')) else 0
 
@@ -46,10 +48,12 @@ def set_alarm():
         json.dump({"red": red, "green": green, "blue": blue, "hour":hour, "minute":minute}, f)
 
     current_day = date.today()
+    if(hour < datetime.now().hour or ( hour == datetime.now().hour and minute < datetime.now().minute )):
+        current_day = current_day + timedelta(days=1)
     
     cron = CronTab(user='pi')
     cron.remove_all(comment='led_alarm')
-    job = cron.new(command='python3 /var/www/piapp/schedule.py > /home/pi/alarmlog.txt', comment='led_alarm')
+    job = cron.new(command='python3 /var/www/piapp/schedule.py >> /home/pi/alarmlog.txt', comment='led_alarm')
     job.month.on(current_day.month)
     job.day.on(current_day.day)
     job.hour.on(hour - 1)
