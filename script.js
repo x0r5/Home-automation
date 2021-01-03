@@ -143,3 +143,23 @@ $(document).ready(function() {
     }
 
 });
+
+function setAlarm(){
+    let timeSet = document.getElementById('inputTime').value;
+    if(timeSet){
+        hour = timeSet.split(':')[0];
+        minute = timeSet.split(':')[1];
+    }else{
+        console.log('there is no time set');
+        return;
+    }
+    $.ajax({
+        url: `${config.url}/led/setAlarm?red=255&hour=${hour}&minute=${minute}`,
+        method: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function(result) {
+            console.log(result);
+        },
+    });
+}
