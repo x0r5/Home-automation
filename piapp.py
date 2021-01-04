@@ -61,4 +61,4 @@ def set_alarm():
     job.enable()
     cron.write()
 
-    return 'Time set for alarm.'
+    return jsonify({'Time set for alarm':str(hour-1) + ':' + str(minute)})
