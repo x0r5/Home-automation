@@ -5,6 +5,7 @@ from datetime import datetime
 from datetime import timedelta
 import pigpio
 import json
+import os
 
 
 app = Flask(__name__)
@@ -62,3 +63,28 @@ def set_alarm():
     cron.write()
 
     return jsonify({'Time set for alarm':str(hour-1) + ':' + str(minute)})
+
+@app.route('/stopAlarm', methods=['GET'])
+def stop_alarm():
+    cron = CronTab(user='pi')
+    cron.remove_all(comment='led_alarm')
+    cron.write()
+
+    os.system("kill $(pgrep -d',' python3)")
+    pi.set_PWM_dutycycle(24, 0)
+    pi.set_PWM_dutycycle(18, 0)
+    pi.set_PWM_dutycycle(25, 0)
+    return jsonify({"answer":"ok"})
+
+@app.route('/getAlarms', methods=['GET'])
+def get_alarms():
+    cron = CronTab(user='pi')
+    ans_json = ''
+    all_alarms = cron.find_comment('led_alarm')
+    for line in all_alarms:
+        if len(ans_json) > 0:
+            ans_json += '\n'
+        splitted_line = str(line).split()
+        ans_json += '' + splitted_line[1] + ':' + splitted_line[0] + ', ' + splitted_line[3] + '.' + splitted_line[2]
+
+    return ans_json

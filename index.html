@@ -20,7 +20,8 @@
           <div class="p-2"><a class="navbar-brand" href="#">Bedroom Lights </a></div> 
             <div class="p-2"><span id="subtitle">RGB</span></div>
         </nav>
-        <div class="container">
+        <div id="loading">LOADING</div>
+        <div class="container" id="main-container">
             <div class="row">
                 <div class="col">
                     <div id="slider"></div>
@@ -36,6 +37,15 @@
                     <label for="inputTime">When?</label>
                     <input type="time" id="inputTime" />
                     <button class="btn btn-primary" onclick="setAlarm()">Save</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-danger" onclick="stopAlarm()">Stop Alarm</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Alarms set:
+                    <output value='none' id='alarms_set'></output>
                 </div>
             </div>
         </div>

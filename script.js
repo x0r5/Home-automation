@@ -6,6 +6,7 @@ let currentColors = {};
 let rgbBrightnessChange = false;
 
 $(document).ready(function() {
+    document.getElementById('main-container').style.display = 'none';
     // Cache buster added because caching was a big problem on mobile
     let cacheBuster = new Date().getTime();
 
@@ -139,6 +140,28 @@ $(document).ready(function() {
                 currentColors.blue = result.blue;
                 pickr.setColor(colors);
             },
+            complete: function(){
+                document.getElementById('main-container').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+    }
+    
+    function getAlarmData(){
+        set_alarms = document.getElementById('alarms_set');
+        $.ajax({
+            url: `${config.url}/led/getAlarms`,
+            method: 'GET',
+            success: function(result) {
+                if(result){
+                    set_alarms.value = result;
+                    console.log(result);
+                }
+            },
+            complete: function(){
+                document.getElementById('main-container').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }
         });
     }
 
@@ -156,6 +179,18 @@ function setAlarm(){
     }
     $.ajax({
         url: `${config.url}/led/setAlarm?red=${currentColors.red}&green=${currentColors.green}&blue=${currentColors.blue}&hour=${hour}&minute=${minute}`,
+        method: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function(result) {
+            console.log(result);
+        }
+    });
+}
+
+function stopAlarm(){
+    $.ajax({
+        url: `${config.url}/led/stopAlarm`,
         method: 'GET',
         dataType: 'json',
         cache: false,
