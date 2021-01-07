@@ -13,6 +13,9 @@ $(document).ready(function() {
     // btnStatus();
     getLEDStatus();
 
+    //get alarm data
+    getAlarmData();
+
     // RGB Slider
     let slider = document.getElementById('slider');
 
